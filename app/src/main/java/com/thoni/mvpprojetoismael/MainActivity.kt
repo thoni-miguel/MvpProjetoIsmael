@@ -10,6 +10,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.thoni.mvpprojetoismael.ui.employee.EmployeeListViewModel
+import com.thoni.mvpprojetoismael.ui.employee.EmployeeListViewModelFactory
+import com.thoni.mvpprojetoismael.ui.epitype.EpiTypeListViewModel
+import com.thoni.mvpprojetoismael.ui.epitype.EpiTypeListViewModelFactory
+import com.thoni.mvpprojetoismael.ui.home.HomeScreen
 import com.thoni.mvpprojetoismael.ui.theme.MvpProjetoIsmaelTheme
 import com.thoni.mvpprojetoismael.ui.employee.EmployeeListScreen
 import com.thoni.mvpprojetoismael.ui.employee.EmployeeListViewModel
@@ -17,10 +22,16 @@ import com.thoni.mvpprojetoismael.ui.employee.EmployeeListViewModelFactory
 
 class MainActivity : ComponentActivity() {
     private val appContainer by lazy { (application as MvpProjetoIsmaelApp).appContainer }
-    private val viewModel: EmployeeListViewModel by viewModels {
+    private val employeeViewModel: EmployeeListViewModel by viewModels {
         EmployeeListViewModelFactory(
             appContainer.observeEmployeesUseCase,
             appContainer.addEmployeeUseCase
+        )
+    }
+    private val epiTypeViewModel: EpiTypeListViewModel by viewModels {
+        EpiTypeListViewModelFactory(
+            appContainer.observeEpiTypesUseCase,
+            appContainer.addEpiTypeUseCase
         )
     }
 
@@ -30,12 +41,18 @@ class MainActivity : ComponentActivity() {
         setContent {
             MvpProjetoIsmaelTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    val state by viewModel.uiState.collectAsStateWithLifecycle()
-                    EmployeeListScreen(
-                        state = state,
-                        onAddEmployee = viewModel::onAddEmployee,
-                        onErrorShown = viewModel::onErrorShown,
-                        onInputsCleared = viewModel::onInputsCleared
+                    val employeeState by employeeViewModel.uiState.collectAsStateWithLifecycle()
+                    val epiState by epiTypeViewModel.uiState.collectAsStateWithLifecycle()
+
+                    HomeScreen(
+                        employeeState = employeeState,
+                        epiTypeState = epiState,
+                        onAddEmployee = employeeViewModel::onAddEmployee,
+                        onEmployeeErrorShown = employeeViewModel::onErrorShown,
+                        onEmployeeInputsCleared = employeeViewModel::onInputsCleared,
+                        onAddEpiType = epiTypeViewModel::onAddEpiType,
+                        onEpiTypeErrorShown = epiTypeViewModel::onErrorShown,
+                        onEpiTypeInputsCleared = epiTypeViewModel::onInputsCleared
                     )
                 }
             }

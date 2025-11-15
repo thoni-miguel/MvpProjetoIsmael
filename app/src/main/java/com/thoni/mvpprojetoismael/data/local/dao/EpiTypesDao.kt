@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface EpiTypesDao {
     @Query("SELECT * FROM epi_types ORDER BY name")
-    fun observeTypes(): Flow<List<EpiTypeEntity>>
+    fun observeEpiTypes(): Flow<List<EpiTypeEntity>>
 
     @Upsert
     suspend fun upsert(type: EpiTypeEntity)
