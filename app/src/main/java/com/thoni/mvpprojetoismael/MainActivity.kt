@@ -16,6 +16,9 @@ import com.thoni.mvpprojetoismael.ui.epitype.EpiTypeListViewModel
 import com.thoni.mvpprojetoismael.ui.epitype.EpiTypeListViewModelFactory
 import com.thoni.mvpprojetoismael.ui.home.HomeScreen
 import com.thoni.mvpprojetoismael.ui.theme.MvpProjetoIsmaelTheme
+import com.thoni.mvpprojetoismael.ui.employee.EmployeeListScreen
+import com.thoni.mvpprojetoismael.ui.employee.EmployeeListViewModel
+import com.thoni.mvpprojetoismael.ui.employee.EmployeeListViewModelFactory
 
 class MainActivity : ComponentActivity() {
     private val appContainer by lazy { (application as MvpProjetoIsmaelApp).appContainer }
