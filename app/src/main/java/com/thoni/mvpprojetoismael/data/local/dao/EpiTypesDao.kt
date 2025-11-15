@@ -11,6 +11,9 @@ interface EpiTypesDao {
     @Query("SELECT * FROM epi_types ORDER BY name")
     fun observeEpiTypes(): Flow<List<EpiTypeEntity>>
 
+    @Query("SELECT * FROM epi_types WHERE id = :id LIMIT 1")
+    suspend fun findById(id: String): EpiTypeEntity?
+
     @Upsert
     suspend fun upsert(type: EpiTypeEntity)
 }

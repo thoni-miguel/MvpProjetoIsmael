@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface EpiTypeRepository {
     fun observeEpiTypes(): Flow<List<EpiType>>
     suspend fun addOrUpdate(epiType: EpiType)
+    suspend fun getById(id: String): EpiType?
 }

@@ -18,4 +18,8 @@ class EpiTypeRepositoryImpl(
     override suspend fun addOrUpdate(epiType: EpiType) {
         epiTypesDao.upsert(epiType.toEntity())
     }
+
+    override suspend fun getById(id: String): EpiType? {
+        return epiTypesDao.findById(id)?.toDomain()
+    }
 }

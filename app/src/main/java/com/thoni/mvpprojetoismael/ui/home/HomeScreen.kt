@@ -17,6 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.thoni.mvpprojetoismael.ui.delivery.DeliveryListUiState
+import com.thoni.mvpprojetoismael.ui.delivery.DeliverySection
 import com.thoni.mvpprojetoismael.ui.employee.EmployeeListUiState
 import com.thoni.mvpprojetoismael.ui.employee.EmployeeSection
 import com.thoni.mvpprojetoismael.ui.epitype.EpiTypeListUiState
@@ -27,12 +29,18 @@ import com.thoni.mvpprojetoismael.ui.epitype.EpiTypeSection
 fun HomeScreen(
     employeeState: EmployeeListUiState,
     epiTypeState: EpiTypeListUiState,
+    deliveryState: DeliveryListUiState,
     onAddEmployee: (String, String?) -> Unit,
     onEmployeeErrorShown: () -> Unit,
     onEmployeeInputsCleared: () -> Unit,
     onAddEpiType: (String, String) -> Unit,
     onEpiTypeErrorShown: () -> Unit,
-    onEpiTypeInputsCleared: () -> Unit
+    onEpiTypeInputsCleared: () -> Unit,
+    onSelectDeliveryEmployee: (String) -> Unit,
+    onSelectDeliveryEpiType: (String) -> Unit,
+    onRegisterDelivery: () -> Unit,
+    onDeliveryErrorShown: () -> Unit,
+    onDeliverySuccessShown: () -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -62,6 +70,16 @@ fun HomeScreen(
                 onAddEpiType = onAddEpiType,
                 onErrorShown = onEpiTypeErrorShown,
                 onInputsCleared = onEpiTypeInputsCleared,
+                modifier = Modifier.fillMaxWidth()
+            )
+            DeliverySection(
+                state = deliveryState,
+                snackbarHostState = snackbarHostState,
+                onSelectEmployee = onSelectDeliveryEmployee,
+                onSelectEpiType = onSelectDeliveryEpiType,
+                onRegisterDelivery = onRegisterDelivery,
+                onErrorShown = onDeliveryErrorShown,
+                onSuccessMessageShown = onDeliverySuccessShown,
                 modifier = Modifier.fillMaxWidth()
             )
         }
